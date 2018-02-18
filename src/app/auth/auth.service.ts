@@ -23,9 +23,18 @@ export class AuthService {
       );
   }
 
+  logout() {
+    firebase.auth().signOut();
+    this.token = null;
+  }
+
   getToken() {
     firebase.auth().currentUser.getToken()
       .then(token => this.token = token);
     return this.token;
+  }
+
+  isAuthenticated() {
+    return this.token != null;
   }
 }
