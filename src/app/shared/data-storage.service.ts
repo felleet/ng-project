@@ -2,24 +2,21 @@ import {Injectable} from "@angular/core";
 import {RecipeService} from "../recipes/recipe.service";
 import {Recipe} from "../recipes/recipe.model";
 import {AuthService} from "../auth/auth.service";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpRequest} from "@angular/common/http";
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class DataStorageService {
   constructor(private httpClient: HttpClient,
-              private recipeService: RecipeService,
-              private authService: AuthService){}
+              private recipeService: RecipeService){}
 
   storeRecipes(){
-    let token = this.authService.getToken();
-    return this.httpClient.put('https://ng-recipe-book-8.firebaseio.com/recipes.json?auth=' + token,
+    return this.httpClient.put('https://ng-recipe-book-8.firebaseio.com/recipes.json',
       this.recipeService.getRecipes());
   }
 
   getRecipes() {
-    let token = this.authService.getToken();
-    this.httpClient.get<Recipe[]>('https://ng-recipe-book-8.firebaseio.com/recipes.json?auth=' + token)
+    this.httpClient.get<Recipe[]>('https://ng-recipe-book-8.firebaseio.com/recipes.json')
       .map((recipes) => {
         for (let recipe of recipes) {
           if (recipe['ingredients']) {
