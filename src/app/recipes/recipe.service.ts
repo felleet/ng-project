@@ -1,6 +1,6 @@
 import { Recipe } from './recipe.model';
-import {Ingredient} from "../shared/ingredient.model";
-import {Subject} from "rxjs/Subject";
+import {Ingredient} from '../shared/ingredient.model';
+import {Subject} from 'rxjs/Subject';
 
 export class RecipeService {
 
@@ -32,7 +32,7 @@ export class RecipeService {
     return this.recipes[index];
   }
 
-  addRecipe(recipe: Recipe){
+  addRecipe(recipe: Recipe) {
     this.recipes.push(recipe);
     this.recipesChanged.next(this.getRecipes());
   }
@@ -42,7 +42,7 @@ export class RecipeService {
     this.recipesChanged.next(this.getRecipes());
   }
 
-  deleteRecipe(index: number){
+  deleteRecipe(index: number) {
     this.recipes.splice(index, 1);
     this.recipesChanged.next(this.getRecipes());
   }
