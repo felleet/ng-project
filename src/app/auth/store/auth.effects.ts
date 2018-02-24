@@ -1,6 +1,6 @@
 import {Actions, Effect} from '@ngrx/effects';
 import {Injectable} from '@angular/core';
-import * as AuthAcitons from './auth.actions';
+import * as AuthActions from './auth.actions';
 import {fromPromise} from 'rxjs/observable/fromPromise';
 import * as firebase from 'firebase';
 import 'rxjs/add/operator/mergeMap';
@@ -10,8 +10,8 @@ import {Router} from '@angular/router';
 export class AuthEffects {
   @Effect()
   authSignup = this.actions$
-    .ofType(AuthAcitons.TRY_SIGNUP)
-    .map((action: AuthAcitons.TrySignup) => {
+    .ofType(AuthActions.TRY_SIGNUP)
+    .map((action: AuthActions.TrySignup) => {
       return action.payload;
     })
     .switchMap((authData: { username: string, password: string }) => {
@@ -23,10 +23,10 @@ export class AuthEffects {
     .mergeMap((token: string) => {
       return [
         {
-          type: AuthAcitons.SIGNUP
+          type: AuthActions.SIGNUP
         },
         {
-          type: AuthAcitons.SET_TOKEN,
+          type: AuthActions.SET_TOKEN,
           payload: token
         }
       ];
@@ -34,8 +34,8 @@ export class AuthEffects {
 
   @Effect()
   authSignin = this.actions$
-    .ofType(AuthAcitons.TRY_SIGNIN)
-    .map((action: AuthAcitons.TrySignin) => {
+    .ofType(AuthActions.TRY_SIGNIN)
+    .map((action: AuthActions.TrySignin) => {
       return action.payload;
     })
     .switchMap((authData: { username: string, password: string }) => {
@@ -48,15 +48,21 @@ export class AuthEffects {
       this.router.navigate(['/']);
       return [
         {
-          type: AuthAcitons.SIGNIN
+          type: AuthActions.SIGNIN
         },
         {
-          type: AuthAcitons.SET_TOKEN,
+          type: AuthActions.SET_TOKEN,
           payload: token
         }
       ];
     });
 
+  @Effect({dispatch: false})
+  authLogout = this.actions$
+    .ofType(AuthActions.LOGOUT)
+    .do(() => {
+      this.router.navigate(['/']);
+    });
 
   constructor(private actions$: Actions, private router: Router) {
   }
