@@ -10,7 +10,7 @@
         <input type="password" id="password" name="password" ngModel required  class="form-control">
       </div>
 
-      <button type="submit" class="btn btn-primary">Sign Up</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Sign Up</button>
     </form>
   </div>
 </div>
