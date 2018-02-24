@@ -12,7 +12,7 @@ import {CoreModule} from './core/core.module';
 import {HttpClientModule} from '@angular/common/http';
 import {reducers} from './store/app.reducers';
 import {EffectsModule} from '@ngrx/effects';
-import {AuthEffects} from './auth/auth.effects';
+import {AuthEffects} from './auth/store/auth.effects';
 
 @NgModule({
   declarations: [AppComponent],
