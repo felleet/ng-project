@@ -4,6 +4,7 @@ import * as AuthActions from './auth.actions';
 import {fromPromise} from 'rxjs/observable/fromPromise';
 import * as firebase from 'firebase';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/map';
 import {Router} from '@angular/router';
 
 @Injectable()
